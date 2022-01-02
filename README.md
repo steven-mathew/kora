@@ -4,6 +4,8 @@
 
 A text editor written in Rust.
 
+Inspired by [kiro](https://github.com/rhysd/kiro-editor).
+
 ## License
 
 Licensed under either of
