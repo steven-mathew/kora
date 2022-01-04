@@ -6,6 +6,9 @@ use crossterm::{execute, ErrorKind};
 
 use std::time::Duration;
 
+const VERSION: &str = env!("CARGO_PKG_VERSION");
+
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Size {
     pub width: u16,
     pub height: u16,
@@ -61,12 +64,10 @@ impl Terminal {
         execute!(stdout(), terminal::Clear(terminal::ClearType::CurrentLine)).unwrap();
     }
 
-    pub fn size(&self) -> &Size {
-        &self.size
+    pub fn size(&self) -> Size {
+        self.size
     }
 }
-
-const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 pub struct Editor {
     quit: bool,
