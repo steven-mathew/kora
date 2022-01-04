@@ -57,6 +57,10 @@ impl Terminal {
         execute!(stdout(), terminal::Clear(terminal::ClearType::All)).unwrap();
     }
 
+    pub fn clear_current_line() {
+        execute!(stdout(), terminal::Clear(terminal::ClearType::CurrentLine)).unwrap();
+    }
+
     pub fn size(&self) -> &Size {
         &self.size
     }
@@ -136,7 +140,8 @@ impl Editor {
     }
 
     fn draw_rows(&self) {
-        for _ in 0..self.terminal.size().height {
+        for _ in 1..self.terminal.size().height {
+            Terminal::clear_current_line();
             println!("~\r");
         }
     }
