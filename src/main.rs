@@ -66,6 +66,8 @@ impl Terminal {
     }
 }
 
+const VERSION: &str = env!("CARGO_PKG_VERSION");
+
 pub struct Editor {
     quit: bool,
     terminal: Terminal,
@@ -139,10 +141,27 @@ impl Editor {
         }
     }
 
+    fn draw_welcome_message(&self) {
+        let mut welcome_message = format!("Kora editor -- version {}", VERSION);
+        let width = self.terminal.size().width as usize;
+        let len = welcome_message.len();
+        let padding = width.saturating_sub(len) / 2;
+        let spaces = " ".repeat(padding.saturating_sub(1));
+        welcome_message = format!("~{}{}", spaces, welcome_message);
+        welcome_message.truncate(width);
+        println!("{}\r", welcome_message);
+    }
+
     fn draw_rows(&self) {
-        for _ in 1..self.terminal.size().height {
+        let height = self.terminal.size().height;
+
+        for row in 1..height {
             Terminal::clear_current_line();
-            println!("~\r");
+            if row == height / 3 {
+                self.draw_welcome_message();
+            } else {
+                println!("~\r");
+            }
         }
     }
 }
