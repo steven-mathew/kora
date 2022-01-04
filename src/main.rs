@@ -141,15 +141,15 @@ impl Editor {
         }
     }
 
-    fn draw_welcome_message(&self) {
-        let mut welcome_message = format!("Kora editor -- version {}", VERSION);
+    fn draw_intro_message(&self) {
+        let mut intro_message = format!("Kora editor -- version {}", VERSION);
         let width = self.terminal.size().width as usize;
-        let len = welcome_message.len();
+        let len = intro_message.len();
         let padding = width.saturating_sub(len) / 2;
         let spaces = " ".repeat(padding.saturating_sub(1));
-        welcome_message = format!("~{}{}", spaces, welcome_message);
-        welcome_message.truncate(width);
-        println!("{}\r", welcome_message);
+        intro_message = format!("~{}{}", spaces, intro_message);
+        intro_message.truncate(width);
+        println!("{}\r", intro_message);
     }
 
     fn draw_rows(&self) {
@@ -158,7 +158,7 @@ impl Editor {
         for row in 1..height {
             Terminal::clear_current_line();
             if row == height / 3 {
-                self.draw_welcome_message();
+                self.draw_intro_message();
             } else {
                 println!("~\r");
             }
